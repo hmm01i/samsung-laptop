@@ -1,0 +1,9 @@
+[Unit]
+Description=Keyboard Backlight Service
+
+[Service]
+EnvironmentFile=-/etc/default/kbd-backlight
+ExecStart=start-stop-daemon --start -p /var/run/kbd-backlight.pid -m -b /usr/local/bin/kbd-backlight.py
+ExecStop=start-stop-daemon --stop -p /var/run/kbd-backlight.pid /usr/local/bin/kbd-backlight.py
+IgnoreSIGPIPE=false
+
