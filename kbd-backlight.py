@@ -6,7 +6,7 @@ import time
 
 backlight_device = '/sys/devices/platform/samsung/leds/samsung::kbd_backlight/brightness'
 keybd = evdev.InputDevice('/dev/input/event3')
-
+config_file='/etc/sysconfig/kbd-backlight'
 mode = 'event'
 
 
@@ -16,14 +16,11 @@ def sig_handler(signal,frame):
 
 def load_config():
 	try:
-		with open('/etc/sysconfig/backlight') as c:
+		with open(config_file) as c:
 			#parse config
 			print('parsing config')
 	except:
 		print('couldnt load config. going with defaults')
-
-def main():
-	event()
 
 def alwayson():
 	print('alwayson')
@@ -33,7 +30,7 @@ def alwayson():
 		time.sleep(1)
 
 def alwaysoff():
-	print('why would you want it off?')
+	print('why would you want it off? just turn off the service...')
 
 def event():
 	print('event mode')
@@ -44,10 +41,10 @@ def event():
 				b.write('3')
 
 
+def main():
+	event()
+
 if __name__ == "__main__":
 	signal.signal(signal.SIGINT,sig_handler)
-	start = {
-		'event': event,
-		'alwayson': alwayson
-		}
+        load_config()
 	main()
