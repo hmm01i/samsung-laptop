@@ -2,9 +2,6 @@
 Description=Keyboard Backlight Service
 
 [Service]
-Type=simple
 EnvironmentFile=-/etc/default/kbd-backlight
-ExecStart=/sbin/start-stop-daemon -v -p /var/run/kbd-backlight.pid -m -b --exec /usr/local/bin/kbd-backlight --start
-ExecStop=/sbin/start-stop-daemon -v -p /var/run/kbd-backlight.pid  --remove-pid --stop
-IgnoreSIGPIPE=false
+ExecStart=/usr/local/bin/kbd-backlight 2>&1
 
