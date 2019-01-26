@@ -1,0 +1,42 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:        kbd-backlight
+# Required-Start:  $syslog
+# Required-Stop:   $syslog
+# Default-Start:   2 3 4 5
+# Default-Stop:    1
+# Short-Description: Start kbd-backlight daemon
+# Descrition  : A keyboard backlight service
+### END INIT INFO
+
+
+NAME='kbd-backlight'
+PIDFILE='/var/run/kbd-backlight.pid'
+DAEMON=/usr/local/bin/kbd-backlight.py
+
+test -x $DAEMON || exit 0
+
+#. /lib/lsb/init-functions
+
+
+
+case $1 in
+        start)
+		/sbin/start-stop-daemon -v -p $PIDFILE -m -b --exec $DAEMON --start
+		;;
+        stop)
+		/sbin/start-stop-daemon -v -p $PIDFILE --remove-pid --stop
+		;;
+        restart|force-reload)
+                $0 stop && sleep 2 && $0 start
+                ;;
+	status)
+		status_of_proc -p $PIDFILE $DAEMON $NAME && exit 0 || exit $?
+		;;
+        *)
+                echo "Usage: $0 {start|stop|restart|try-restart|force-reload|status}"
+                exit 2
+                ;;
+esac
+
