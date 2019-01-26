@@ -1,4 +1,6 @@
 package main
+// kbd-backlight is a small service that monitors evdev
+// and turns up backlight on samsung laptop
 
 import (
 	"os"
@@ -14,13 +16,14 @@ const (
 )
 
 func main() {
+  // TODO: check if we have we are run as root
 	var kbd *evdev.InputDevice
 	var events []evdev.InputEvent
 	var err error
 	lightness := []byte("3")
 	kbd, err = evdev.Open(kbd_dev)
 	if err != nil {
-		fmt.Printf("unable to open input device: %s\n", kbd_dev)
+		fmt.Printf("Unable to open input device: %s\n. got root?", kbd_dev)
 		os.Exit(1)
 	}
 //	fmt.Println(kbd)

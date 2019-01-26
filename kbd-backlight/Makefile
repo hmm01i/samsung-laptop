@@ -10,7 +10,7 @@ build:
 install:
 	cp ${pkgname}.init /etc/init.d/${pkgname}
 	cp ${pkgname}.service /etc/systemd/system/${pkgname}.service
-	cp bin/${pkgname} /usr/local/bin/{pkgname}
+	cp bin/${pkgname} /usr/local/bin/${pkgname}
 
 
 clean:

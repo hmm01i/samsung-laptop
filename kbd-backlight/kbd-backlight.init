@@ -13,7 +13,7 @@
 
 NAME='kbd-backlight'
 PIDFILE='/var/run/kbd-backlight.pid'
-DAEMON=/usr/local/bin/kbd-backlight.py
+DAEMON=/usr/local/bin/kbd-backlight
 
 test -x $DAEMON || exit 0
 
@@ -23,9 +23,11 @@ test -x $DAEMON || exit 0
 
 case $1 in
         start)
+          echo "Starting backlight service with start-stop-daemon"
 		/sbin/start-stop-daemon -v -p $PIDFILE -m -b --exec $DAEMON --start
 		;;
         stop)
+          echo "stopping service"
 		/sbin/start-stop-daemon -v -p $PIDFILE --remove-pid --stop
 		;;
         restart|force-reload)
