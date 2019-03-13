@@ -8,7 +8,6 @@ build:
 	go build -o bin/${pkgname} golang/kbd-backlight.go
 
 install:
-	cp ${pkgname}.init /etc/init.d/${pkgname}
 	cp ${pkgname}.service /etc/systemd/system/${pkgname}.service
 	cp bin/${pkgname} /usr/local/bin/${pkgname}
 
